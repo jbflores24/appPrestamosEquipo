@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Alumnos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="app-container">
+    @if (cargando() && items().length === 0) {
+      <div class="app-state">
+        <ion-spinner></ion-spinner>
+      </div>
+    }
+
+    @if (error(); as mensaje) {
+      <div class="app-state">
+        <p>{{ mensaje }}</p>
+        <ion-button (click)="cargar(1)">Reintentar</ion-button>
+      </div>
+    } @else if (!cargando() && items().length === 0) {
+      <p class="app-state">No hay alumnos todavía.</p>
+    }
+
+    <ion-list class="app-list">
+      @for (alumno of items(); track alumno.id) {
+        <ion-item class="app-card" lines="none" button detail [routerLink]="['/alumnos', alumno.id, 'editar']">
+          <ion-label class="ion-text-wrap">
+            <h2>{{ alumno.nombre }}</h2>
+            <p>{{ alumno.carrera }}</p>
+            <span class="app-chip">{{ alumno.matricula }}</span>
+          </ion-label>
+          <ion-button
+            slot="end"
+            fill="clear"
+            color="danger"
+            aria-label="Eliminar alumno"
+            (click)="confirmarBorrado(alumno, $event)"
+          >
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-item>
+      }
+    </ion-list>
+  </div>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button routerLink="/alumnos/nuevo" aria-label="Nuevo alumno">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+@if (pagination(); as p) {
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button [disabled]="p.current_page <= 1 || cargando()" (click)="anterior()">Anterior</ion-button>
+      </ion-buttons>
+      <ion-title class="ion-text-center">Página {{ p.current_page }} de {{ p.last_page }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button [disabled]="p.current_page >= p.last_page || cargando()" (click)="siguiente()">
+          Siguiente
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+}

@@ -1,2 +1,129 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+// Tema de la aplicación. Todo el aspecto sale de las variables de este archivo:
+// cambia aquí un color, una fuente o un espacio y se actualizan todas las pantallas.
+// El tema sigue al sistema operativo: los valores de abajo son el modo claro y el bloque
+// @media (prefers-color-scheme: dark) del final redefine los que cambian en modo oscuro.
+// Más información: https://ionicframework.com/docs/theming/
+
+:root {
+  color-scheme: light dark;
+
+  // --- Paleta (un solo acento: índigo) -----------------------------------------
+  --app-accent: #4f46e5;          // fondo del encabezado, botones sólidos y botón flotante
+  --app-accent-strong: #4338ca;   // acento al presionar
+  --app-accent-text: #4f46e5;     // acento usado como TEXTO (enlaces, etiquetas, pie)
+  --app-accent-soft: #eef2ff;     // fondo suave de las etiquetas (chips)
+  --app-on-accent: #ffffff;       // texto sobre el acento
+  --app-bg: #ffffff;              // fondo de pantalla
+  --app-surface: #ffffff;         // tarjetas, campos y pie
+  --app-text: #1b2333;            // texto principal
+  --app-text-muted: #667085;      // texto secundario
+  --app-text-disabled: #6b7280;   // controles inactivos
+  --app-border: #e1e5ee;          // bordes
+  --app-danger: #d92d20;          // errores y borrar
+  --app-success: #12805c;         // confirmaciones
+  --app-shadow: 0 2px 10px rgba(27, 35, 51, 0.08);
+  --app-fab-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+
+  // --- Tipografía ---------------------------------------------------------------
+  --app-font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --app-font-size: 1rem;
+  --app-font-size-small: 0.875rem;
+  --app-font-size-title: 1.25rem;
+
+  // --- Espaciado y forma --------------------------------------------------------
+  --app-space-1: 4px;
+  --app-space-2: 8px;
+  --app-space-3: 16px;
+  --app-space-4: 24px;
+  --app-radius: 16px;             // tarjetas
+  --app-radius-field: 12px;       // campos de formulario
+  --app-radius-pill: 999px;       // botones y etiquetas
+  --app-content-max-width: 640px;
+
+  // --- Variables de Ionic conectadas a la paleta ---------------------------------
+  --ion-font-family: var(--app-font);
+  --ion-background-color: var(--app-bg);
+  --ion-background-color-rgb: 255, 255, 255;
+  --ion-text-color: var(--app-text);
+  --ion-text-color-rgb: 27, 35, 51;
+  --ion-border-color: var(--app-border);
+  --ion-item-background: var(--app-surface);
+  --ion-toolbar-background: var(--app-accent);
+  --ion-toolbar-color: var(--app-on-accent);
+
+  --ion-color-primary: #4f46e5;
+  --ion-color-primary-rgb: 79, 70, 229;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #463ecc;
+  --ion-color-primary-tint: #6159e9;
+
+  --ion-color-danger: #d92d20;
+  --ion-color-danger-rgb: 217, 45, 32;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #bf281c;
+  --ion-color-danger-tint: #dd4236;
+
+  --ion-color-success: #12805c;
+  --ion-color-success-rgb: 18, 128, 92;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #107150;
+  --ion-color-success-tint: #2a8d6c;
+}
+
+// --- Modo oscuro ------------------------------------------------------------------
+// Ionic trae su propia paleta oscura (global.scss importa dark.system.css) con la misma
+// condición. Aquí solo se redefinen los colores propios de la app. Los selectores
+// :root.md y :root.ios igualan la especificidad de la paleta de Ionic, que fija el fondo
+// y el color de los items según la plataforma.
+@media (prefers-color-scheme: dark) {
+  :root,
+  :root.md,
+  :root.ios {
+    --app-accent-strong: #4338ca;
+    --app-accent-text: #a5b4fc;     // índigo claro: legible como texto sobre fondo oscuro
+    --app-accent-soft: #272a52;     // fondo de las etiquetas en oscuro
+    --app-bg: #121212;
+    --app-surface: #1e1e1e;
+    --app-text: #f1f3f5;
+    --app-text-muted: #aab2bd;
+    --app-text-disabled: #8b94a1;
+    --app-border: #343a46;
+    --app-danger: #f87171;
+    --app-success: #34d399;
+    --app-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    --app-fab-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+
+    --ion-background-color: var(--app-bg);
+    --ion-background-color-rgb: 18, 18, 18;
+    --ion-text-color: var(--app-text);
+    --ion-text-color-rgb: 241, 243, 245;
+    --ion-item-background: var(--app-surface);
+    --ion-toolbar-background: var(--app-accent);
+    --ion-toolbar-color: var(--app-on-accent);
+
+    // Colores de Ionic que se usan como texto o como fondo de toasts y casillas.
+    --ion-color-primary: #818cf8;
+    --ion-color-primary-rgb: 129, 140, 248;
+    --ion-color-primary-contrast: #000000;
+    --ion-color-primary-contrast-rgb: 0, 0, 0;
+    --ion-color-primary-shade: #7280db;
+    --ion-color-primary-tint: #8f99f9;
+
+    --ion-color-danger: #f87171;
+    --ion-color-danger-rgb: 248, 113, 113;
+    --ion-color-danger-contrast: #000000;
+    --ion-color-danger-contrast-rgb: 0, 0, 0;
+    --ion-color-danger-shade: #da6565;
+    --ion-color-danger-tint: #f98080;
+
+    --ion-color-success: #34d399;
+    --ion-color-success-rgb: 52, 211, 153;
+    --ion-color-success-contrast: #000000;
+    --ion-color-success-contrast-rgb: 0, 0, 0;
+    --ion-color-success-shade: #2ebb87;
+    --ion-color-success-tint: #48d9a4;
+  }
+}

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/alumnos"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ esEdicion() ? 'Editar alumno' : 'Nuevo alumno' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="app-container">
+    @if (cargando()) {
+      <div class="app-state">
+        <ion-spinner></ion-spinner>
+      </div>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+        <ion-item class="app-field" lines="none">
+          <ion-input label="Matrícula" labelPlacement="stacked" fill="outline" formControlName="matricula"></ion-input>
+        </ion-item>
+        <app-field-error [control]="form.controls.matricula" />
+
+        <ion-item class="app-field" lines="none">
+          <ion-input label="Nombre" labelPlacement="stacked" fill="outline" formControlName="nombre"></ion-input>
+        </ion-item>
+        <app-field-error [control]="form.controls.nombre" />
+
+        <ion-item class="app-field" lines="none">
+          <ion-input label="Carrera" labelPlacement="stacked" fill="outline" formControlName="carrera"></ion-input>
+        </ion-item>
+        <app-field-error [control]="form.controls.carrera" />
+
+        @if (errorGeneral(); as mensaje) {
+          <p class="app-form-error">{{ mensaje }}</p>
+        }
+
+        <ion-button type="submit" expand="block" class="ion-margin-top" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : 'Guardar' }}
+        </ion-button>
+      </form>
+    }
+  </div>
+</ion-content>

@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/prestamos"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ esEdicion() ? 'Editar préstamo' : 'Nuevo préstamo' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="app-container">
+    @if (cargando()) {
+      <div class="app-state">
+        <ion-spinner></ion-spinner>
+      </div>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+        <ion-item class="app-field" lines="none">
+          <ion-select
+            label="Alumno"
+            labelPlacement="stacked"
+            fill="outline"
+            placeholder="Elige un alumno"
+            formControlName="alumno_id"
+          >
+            @for (alumno of alumnosOpciones(); track alumno.id) {
+              <ion-select-option [value]="alumno.id">{{ alumno.nombre }} ({{ alumno.matricula }})</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+        <app-field-error [control]="form.controls.alumno_id" />
+
+        <ion-item class="app-field" lines="none">
+          <ion-input
+            label="Fecha de salida"
+            labelPlacement="stacked"
+            fill="outline"
+            type="date"
+            formControlName="fecha_salida"
+          ></ion-input>
+        </ion-item>
+        <app-field-error [control]="form.controls.fecha_salida" />
+
+        <ion-item class="app-field" lines="none">
+          <ion-input
+            label="Devolución esperada"
+            labelPlacement="stacked"
+            fill="outline"
+            type="date"
+            formControlName="fecha_devolucion_esperada"
+          ></ion-input>
+        </ion-item>
+        <app-field-error [control]="form.controls.fecha_devolucion_esperada" />
+
+        @if (!esEdicion()) {
+          @if (equiposDisponibles().length === 0) {
+            <p class="app-state">No hay equipos disponibles para prestar.</p>
+          }
+          <ion-item class="app-field" lines="none">
+            <ion-select
+              label="Equipos"
+              labelPlacement="stacked"
+              fill="outline"
+              placeholder="Elige uno o más equipos"
+              [multiple]="true"
+              [selectedText]="textoEquipos()"
+              formControlName="equipos"
+            >
+              @for (equipo of equiposDisponibles(); track equipo.id) {
+                <ion-select-option [value]="equipo.id">{{ equipo.nombre }} ({{ equipo.codigo }})</ion-select-option>
+              }
+            </ion-select>
+          </ion-item>
+          <app-field-error [control]="form.controls.equipos" />
+        }
+
+        @if (errorGeneral(); as mensaje) {
+          <p class="app-form-error">{{ mensaje }}</p>
+        }
+
+        <ion-button type="submit" expand="block" class="ion-margin-top" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : 'Guardar' }}
+        </ion-button>
+      </form>
+    }
+  </div>
+</ion-content>

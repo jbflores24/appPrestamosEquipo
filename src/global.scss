@@ -26,12 +26,216 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 /**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
+ * Modo oscuro: la app sigue el tema del sistema operativo (prefers-color-scheme).
+ * Esta paleta de Ionic solo actúa con el sistema en oscuro; los colores propios de la app
+ * están en theme/variables.scss, con su versión oscura en el mismo bloque @media.
+ * Más opciones: https://ionicframework.com/docs/theming/dark-mode
  */
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* ------------------------------------------------------------------------
+ * Estilos de la aplicación. Los colores y medidas vienen de theme/variables.scss.
+ * Las pantallas solo usan estas clases:
+ *   .app-container   contenedor centrado del contenido de la pantalla
+ *   .app-card        tarjeta de un listado (ion-item)
+ *   .app-chip        etiqueta pequeña (por ejemplo, una fecha)
+ *   .app-field       campo de formulario (ion-item que envuelve ion-input)
+ *   .app-field-error mensaje de error bajo un campo
+ *   .app-form-error  mensaje de error general de un formulario
+ *   .app-state       bloque centrado para carga, vacío, error y no encontrado
+ * ------------------------------------------------------------------------ */
+
+body {
+  font-size: var(--app-font-size);
+}
+
+/* Encabezado: barra del color de acento con texto blanco. */
+ion-header ion-toolbar {
+  --background: var(--app-accent);
+  --color: var(--app-on-accent);
+  --border-width: 0;
+}
+
+ion-header ion-back-button,
+ion-header ion-button {
+  --color: var(--app-on-accent);
+}
+
+ion-title {
+  font-size: var(--app-font-size-title);
+  font-weight: 600;
+}
+
+/* Pie (paginación): superficie blanca; sus botones usan el color de acento. */
+ion-footer {
+  --ion-toolbar-color: var(--app-accent-text);
+}
+
+ion-footer ion-toolbar {
+  --background: var(--app-surface);
+  --color: var(--app-text);
+  --border-color: var(--app-border);
+  --border-width: 1px 0 0 0;
+}
+
+ion-footer ion-title {
+  font-size: var(--app-font-size-small);
+  font-weight: 500;
+  color: var(--app-text);
+}
+
+/* Botones del pie deshabilitados: texto gris oscuro y legible, sin la opacidad que los desvanece. */
+ion-footer ion-button.button-disabled {
+  --ion-toolbar-color: var(--app-text-disabled);
+  --color: var(--app-text-disabled);
+  opacity: 1;
+  font-weight: 500;
+}
+
+ion-header,
+ion-footer,
+ion-header::after,
+ion-footer::before {
+  box-shadow: none;
+  background-image: none;
+}
+
+/* Botones: forma de píldora, sin mayúsculas forzadas ni sombra. */
+ion-button {
+  --border-radius: var(--app-radius-pill);
+  --box-shadow: none;
+  text-transform: none;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+ion-footer ion-button,
+ion-button[fill='clear'] {
+  --color: var(--app-accent-text);
+}
+
+ion-button[fill='clear'][color='danger'] {
+  --color: var(--app-danger);
+}
+
+/* Botones sólidos (Guardar, Reintentar...): siempre el color de acento del encabezado,
+   también al enfocar, pasar el cursor o presionar. */
+ion-content ion-button:not([fill]),
+ion-content ion-button[fill='solid'] {
+  --background: var(--app-accent);
+  --background-hover: var(--app-accent-strong);
+  --background-focused: var(--app-accent-strong);
+  --background-activated: var(--app-accent-strong);
+  --color: var(--app-on-accent);
+}
+
+/* Botón flotante "+". */
+ion-fab-button {
+  --background: var(--app-accent);
+  --background-activated: var(--app-accent-strong);
+  --color: var(--app-on-accent);
+  --box-shadow: var(--app-fab-shadow);
+}
+
+/* Contenido: columna centrada con ancho máximo, cómoda en teléfono y en escritorio. */
+.app-container {
+  max-width: var(--app-content-max-width);
+  margin: 0 auto;
+  padding: var(--app-space-3);
+}
+
+/* Tarjetas de listado. */
+ion-list.app-list {
+  background: transparent;
+  padding: 0;
+}
+
+ion-item.app-card {
+  --background: var(--app-surface);
+  --border-radius: var(--app-radius);
+  --padding-start: var(--app-space-3);
+  --inner-padding-end: var(--app-space-2);
+  --inner-border-width: 0;
+  border: 1px solid var(--app-border); /* con fondo blanco, el borde separa cada tarjeta */
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+  margin-bottom: var(--app-space-3);
+}
+
+ion-item.app-card h2 {
+  font-size: var(--app-font-size);
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+ion-item.app-card p {
+  color: var(--app-text-muted);
+  font-size: var(--app-font-size-small);
+}
+
+/* Etiqueta pequeña, por ejemplo la fecha de un aviso. */
+.app-chip {
+  display: inline-block;
+  margin-top: var(--app-space-2);
+  padding: 2px var(--app-space-2);
+  border-radius: var(--app-radius-pill);
+  background: var(--app-accent-soft);
+  color: var(--app-accent-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Campos de formulario. */
+ion-item.app-field {
+  --background: transparent;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --inner-border-width: 0;
+  --overflow: visible; /* deja ver la etiqueta que flota sobre el borde del campo */
+  overflow: visible;
+  margin-top: var(--app-space-3);
+}
+
+ion-item.app-field::part(native) {
+  overflow: visible;
+}
+
+ion-input,
+ion-textarea {
+  --background: var(--app-surface);
+  --border-color: var(--app-border);
+  --border-radius: var(--app-radius-field);
+  --highlight-color-focused: var(--app-accent);
+  --color: var(--app-text);
+}
+
+/* Mensajes de error. */
+.app-field-error {
+  display: block;
+  margin-top: var(--app-space-1);
+  font-size: var(--app-font-size-small);
+  color: var(--app-danger);
+}
+
+.app-form-error {
+  margin: var(--app-space-3) 0 0;
+  font-size: var(--app-font-size-small);
+  color: var(--app-danger);
+}
+
+/* Estados: cargando, vacío, error y no encontrado. */
+.app-state {
+  text-align: center;
+  padding: var(--app-space-4) var(--app-space-3);
+  color: var(--app-text-muted);
+}
+
+.app-state h2 {
+  margin: 0 0 var(--app-space-2);
+  font-size: var(--app-font-size-title);
+  font-weight: 600;
+  color: var(--app-text);
+}

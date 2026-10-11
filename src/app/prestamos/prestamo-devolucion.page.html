@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/prestamos"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Devolución</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="app-container">
+    @if (cargando()) {
+      <div class="app-state">
+        <ion-spinner></ion-spinner>
+      </div>
+    } @else if (prestamo(); as p) {
+      <div class="app-state">
+        <h2>{{ p.alumno?.nombre }}</h2>
+        <p>
+          Salida <span class="fecha">{{ p.fecha_salida }}</span> · Devolución esperada
+          <span class="fecha">{{ p.fecha_devolucion_esperada }}</span>
+        </p>
+      </div>
+
+      @if (pendientes().length === 0) {
+        <div class="app-state">
+          <h2>Todo devuelto</h2>
+          <p>Este préstamo ya no tiene equipos pendientes de devolución.</p>
+          <ion-button routerLink="/prestamos">Volver al listado</ion-button>
+        </div>
+      } @else {
+        <form [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+          <ion-button fill="clear" size="small" (click)="alternarTodos()">
+            {{ todosMarcados() ? 'Quitar selección' : 'Seleccionar todos' }}
+          </ion-button>
+
+          @for (detalle of pendientes(); track detalle.id) {
+            <ion-item class="app-card" lines="none">
+              <ion-checkbox
+                labelPlacement="end"
+                justify="start"
+                [checked]="estaMarcado(detalle.equipo_id)"
+                (ionChange)="alternar(detalle.equipo_id, $event.detail.checked)"
+              >
+                {{ detalle.equipo?.nombre }} ({{ detalle.equipo?.codigo }})
+              </ion-checkbox>
+            </ion-item>
+          }
+          <app-field-error [control]="form.controls.equipos" />
+
+          <ion-item class="app-field" lines="none">
+            <ion-textarea
+              label="Observaciones (opcional)"
+              labelPlacement="stacked"
+              fill="outline"
+              formControlName="observaciones"
+              [autoGrow]="true"
+              rows="2"
+            ></ion-textarea>
+          </ion-item>
+          <app-field-error [control]="form.controls.observaciones" />
+
+          @if (errorGeneral(); as mensaje) {
+            <p class="app-form-error">{{ mensaje }}</p>
+          }
+
+          <ion-button type="submit" expand="block" class="ion-margin-top" [disabled]="guardando()">
+            {{ guardando() ? 'Guardando...' : textoBoton() }}
+          </ion-button>
+        </form>
+      }
+
+      @if (devueltos().length > 0) {
+        <h2 class="ion-padding-top">Devueltos</h2>
+        <ion-list class="app-list">
+          @for (detalle of devueltos(); track detalle.id) {
+            <ion-item class="app-card" lines="none">
+              <ion-label class="ion-text-wrap">
+                <h2>{{ detalle.equipo?.nombre }} ({{ detalle.equipo?.codigo }})</h2>
+                <p>
+                  Devuelto el <span class="fecha">{{ detalle.fecha_devolucion_real }}</span> ·
+                  {{ textoRetraso(detalle.dias_retraso) }}
+                </p>
+                @if (detalle.observaciones) {
+                  <p>{{ detalle.observaciones }}</p>
+                }
+              </ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
+    }
+  </div>
+</ion-content>
