@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ReadOnlyApiService } from '../api/read-only-api.service';
-import { Alumno } from '../models/alumno';
+import { WritableApiService } from '../api/writable-api.service';
+import { Alumno, AlumnoPayload } from '../models/alumno';
 
 @Injectable({ providedIn: 'root' })
-export class AlumnoService extends ReadOnlyApiService<Alumno> {
+export class AlumnoService extends WritableApiService<Alumno, AlumnoPayload> {
   protected readonly resource = 'alumno';
 }

@@ -30,3 +30,12 @@ export interface DevolucionPayload {
   /** máximo 255 caracteres */
   observaciones?: string | null;
 }
+
+/** Edición: las dos fechas van siempre juntas; `equipos` no se envía. */
+export interface PrestamoUpdatePayload {
+  alumno_id?: number;
+  /** YYYY-MM-DD */
+  fecha_salida: string;
+  /** YYYY-MM-DD, igual o posterior a fecha_salida */
+  fecha_devolucion_esperada: string;
+}
