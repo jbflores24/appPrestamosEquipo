@@ -1,0 +1,7 @@
+{
+  "name": "appPrestamosEquipo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
