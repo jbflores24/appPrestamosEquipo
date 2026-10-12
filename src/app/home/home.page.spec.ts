@@ -1,18 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { HomePage } from './home.page';
 
 describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
-
-  beforeEach(async () => {
-    fixture = TestBed.createComponent(HomePage);
-    component = fixture.componentInstance;
+  it('muestra un acceso por cada sección, sin repetir Inicio', () => {
+    TestBed.configureTestingModule({ providers: [provideRouter([])] });
+    const fixture = TestBed.createComponent(HomePage);
     fixture.detectChanges();
-  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    const titulos = Array.from<HTMLElement>(fixture.nativeElement.querySelectorAll('ion-item.app-card h2')).map((h) => h.textContent?.trim());
+    expect(titulos).toEqual(['Avisos', 'Alumnos', 'Equipos', 'Préstamos']);
   });
 });

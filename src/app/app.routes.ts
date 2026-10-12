@@ -27,7 +27,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'avisos',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {

@@ -1,3 +1,22 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu contentId="principal">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menú</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list class="app-menu">
+        @for (opcion of opciones; track opcion.url) {
+          <ion-menu-toggle [autoHide]="false">
+            <ion-item [routerLink]="opcion.url" routerLinkActive="activo" routerDirection="root" lines="none" detail="false">
+              <ion-icon slot="start" [name]="opcion.icono" aria-hidden="true"></ion-icon>
+              <ion-label>{{ opcion.titulo }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        }
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="principal"></ion-router-outlet>
 </ion-app>

@@ -1,20 +1,29 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Préstamo de equipo</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="app-container">
+    <div class="app-state">
+      <h2>Bienvenido</h2>
+      <p>Elige una sección para empezar.</p>
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-list class="app-list">
+      @for (seccion of secciones; track seccion.url) {
+        <ion-item class="app-card" [routerLink]="seccion.url" detail="true">
+          <ion-icon slot="start" [name]="seccion.icono" aria-hidden="true"></ion-icon>
+          <ion-label>
+            <h2>{{ seccion.titulo }}</h2>
+            <p>{{ seccion.descripcion }}</p>
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
   </div>
 </ion-content>

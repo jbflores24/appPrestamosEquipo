@@ -239,3 +239,35 @@ ion-textarea {
   font-weight: 600;
   color: var(--app-text);
 }
+
+/* Menú lateral. */
+ion-menu ion-toolbar {
+  --background: var(--app-accent);
+  --color: var(--app-on-accent);
+}
+
+ion-menu ion-content {
+  --background: var(--app-bg);
+}
+
+ion-list.app-menu {
+  background: transparent;
+  padding: var(--app-space-2);
+}
+
+ion-list.app-menu ion-item {
+  --background: transparent;
+  --color: var(--app-text);
+  --border-radius: var(--app-radius-field);
+  margin-bottom: var(--app-space-1);
+}
+
+ion-list.app-menu ion-item.activo {
+  --background: var(--app-accent-soft);
+  --color: var(--app-accent-text);
+  font-weight: 600;
+}
+
+ion-header ion-menu-button {
+  --color: var(--app-on-accent);
+}
